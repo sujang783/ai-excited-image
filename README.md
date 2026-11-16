@@ -5,13 +5,14 @@
 # The Whale in the Rooftop Pool
 
 An entry for make.fun's [ai-excited-01 bounty](https://make.fun/bounty/ai-excited-01)
-("Make the AI judge excited", $250 pot): one image made to get the AI judge excited.
+("Make the AI judge excited", $250 pot): a single image, built to make the judge
+feel something.
 
-A colossal humpback whale bursts out of a tiny rooftop swimming pool on a skyscraper
-at golden sunset — water exploding upward into a flock of birds while the people on
-the deck leap back in awe. One impossible moment, one clear diagonal, teal against
-burning orange. The surprise is the scale: the biggest animal on Earth, in the
-smallest pool in the sky.
+The image is one impossible instant: a colossal humpback whale bursting out of a
+tiny rooftop swimming pool on top of a skyscraper at golden sunset. Water erupts
+into the sky, the deck crowd scrambles back, and the whale hangs there — the
+largest animal alive, squeezed into the smallest pool in the sky, teal water
+against burning orange light.
 
 ## How it runs
 
@@ -22,8 +23,8 @@ smallest pool in the sky.
 mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 ```
 
-The output is a 1024x1024 JPEG (353,913 bytes, under the 1 MiB cap), written byte
-for byte identically on every run.
+The output is a 1024x1024 JPEG (353,913 bytes, under the 1 MiB cap), identical
+on every run.
 
 ## License
 
