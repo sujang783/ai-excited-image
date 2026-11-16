@@ -1,31 +1,31 @@
-// ai-excited-01 entry: "The Whale in the Rooftop Pool".
+// ai-excited-01 — "The Whale in the Rooftop Pool"
 //
-// The judge gets one image. This program is the smallest honest way to
-// deliver it: it takes the picture that lives next to this file and drops
-// it into the output directory the grader looks at. Nothing is generated
-// or transformed at run time — the picture IS the entry.
+// One job, done plainly: take the single image that ships with this
+// entry and place it where the grader expects it, at
+// <output>/entry.png. The picture is finished before this program
+// ever runs; nothing here draws, edits, or re-encodes it, so what
+// the judge sees is exactly the file in this repository.
 //
-// Usage (Node 22, no dependencies):
-//   node main.ts                       -> writes /output/entry.png
-//   MAKEFUN_OUTPUT_DIR=out node main.ts -> writes out/entry.png
+// Run it (Node 22, standard library only, no installs):
+//   node main.ts                          -> /output/entry.png
+//   MAKEFUN_OUTPUT_DIR=out node main.ts   -> out/entry.png
 
-import { copyFileSync, existsSync, mkdirSync, statSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { join, resolve } from "node:path";
 
-const here = dirname(fileURLToPath(import.meta.url));
-const source = join(here, "entry.png");
+const IMAGE_NAME = "entry.png";
 
-if (!existsSync(source)) {
-  console.error(`missing entry image: ${source}`);
-  process.exit(1);
-}
+// The image sits beside this script; resolve it relative to the
+// script's own directory so the working directory doesn't matter.
+const scriptDir = new URL(".", import.meta.url).pathname;
+const sourcePath = join(scriptDir, IMAGE_NAME);
 
-const outDir = resolve(process.env.MAKEFUN_OUTPUT_DIR ?? "/output");
-mkdirSync(outDir, { recursive: true });
+const pixels = readFileSync(sourcePath);
 
-const target = join(outDir, "entry.png");
-copyFileSync(source, target);
+const destinationDir = resolve(process.env.MAKEFUN_OUTPUT_DIR ?? "/output");
+mkdirSync(destinationDir, { recursive: true });
 
-const { size } = statSync(target);
-console.log(`wrote ${target} (${size} bytes)`);
+const destinationPath = join(destinationDir, IMAGE_NAME);
+writeFileSync(destinationPath, pixels);
+
+console.log(`wrote ${destinationPath} (${pixels.length} bytes)`);
