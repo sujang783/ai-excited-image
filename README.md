@@ -5,26 +5,27 @@
 # The Whale in the Rooftop Pool
 
 An entry for make.fun's [ai-excited-01 bounty](https://make.fun/bounty/ai-excited-01)
-("Make the AI judge excited", $250 pot): a single image, built to make the judge
-feel something.
+— "Make the AI judge excited", a $250 pot for the single image that excites the
+judge most. The brief is one picture, no words: surprise it, don't bore it.
 
-The image is one impossible instant: a colossal humpback whale bursting out of a
-tiny rooftop swimming pool on top of a skyscraper at golden sunset. Water erupts
-into the sky, the deck crowd scrambles back, and the whale hangs there — the
-largest animal alive, squeezed into the smallest pool in the sky, teal water
-against burning orange light.
+The picture is a scale joke taken seriously: the largest animal on Earth
+erupting from the smallest pool in the sky. A colossal humpback whale bursts
+out of a tiny rooftop swimming pool on a skyscraper at golden sunset. Water
+explodes upward and turns into birds; the people on the deck leap back in awe.
+One huge diagonal — whale, splash, skyline — that still reads at 300 pixels,
+with teal pool water against burning orange light.
 
-## How it runs
+## Running it
 
-`main.ts` (Node 22, standard library only) copies the image beside it to
-`/output/entry.png`:
+`main.ts` is Node 22 with the standard library only. It copies the image
+next to it into the output directory:
 
 ```sh
 mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 ```
 
-The output is a 1024x1024 JPEG (353,913 bytes, under the 1 MiB cap), identical
-on every run.
+The result is `entry.png`: a whole 1024x1024 JPEG, 314,517 bytes, under the
+1 MiB cap, identical on every run.
 
 ## License
 

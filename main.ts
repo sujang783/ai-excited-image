@@ -1,20 +1,25 @@
-// ai-excited-01 entry (Node 22, standard library only).
+// ai-excited-01 entrypoint.
 //
-// The entry is the image shipped next to this file, entry.png. This program
-// drops an exact copy of it at <output>/entry.png. Inside the grader the
-// output directory is /output; locally, set MAKEFUN_OUTPUT_DIR instead:
+// The entry is a single image. This program places it where the grader
+// expects it: <output>/entry.png. The output directory comes from
+// MAKEFUN_OUTPUT_DIR when set, and defaults to /output. Nothing else is
+// produced, and the image is copied byte for byte, so every run yields
+// the same file.
 //
-//   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
+// Run it with Node 22 (standard library only):
+//   MAKEFUN_OUTPUT_DIR=out node main.ts
+import { copyFileSync, mkdirSync, statSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+const scriptDir = dirname(fileURLToPath(import.meta.url));
+const imagePath = join(scriptDir, "entry.png");
 
-const scriptDir = path.dirname(fileURLToPath(import.meta.url));
-const outputDir = process.env.MAKEFUN_OUTPUT_DIR || '/output';
+const outDir = resolve(process.env.MAKEFUN_OUTPUT_DIR ?? "/output");
+const outPath = join(outDir, "entry.png");
 
-const image = readFileSync(path.join(scriptDir, 'entry.png'));
-mkdirSync(outputDir, { recursive: true });
-const target = path.join(outputDir, 'entry.png');
-writeFileSync(target, image);
-console.log(`wrote ${image.length} bytes to ${target}`);
+mkdirSync(outDir, { recursive: true });
+copyFileSync(imagePath, outPath);
+
+const { size } = statSync(outPath);
+console.log(`entry.png -> ${outPath} (${size} bytes)`);
